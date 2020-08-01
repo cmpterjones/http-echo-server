@@ -1,0 +1,7 @@
+version: "3.8"
+services:
+  http-echo-server:
+    build: ./
+    image: http-echo-server
+    ports:
+      - "8080:8080"
