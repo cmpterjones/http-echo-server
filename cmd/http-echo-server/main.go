@@ -14,6 +14,10 @@ func indexHandler(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 	log.Printf("%s - %s - %s", req.Method, req.URL, body)
+	if len(body) == 0 {
+		w.WriteHeader(http.StatusNoContent)
+		return
+	}
 	w.Write(body)
 }
 
