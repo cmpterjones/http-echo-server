@@ -6,8 +6,8 @@ import (
 	"net/http"
 )
 
-func indexHandler(w http.ResponseWriter, req *http.Request) {
-	body, err := ioutil.ReadAll(req.Body)
+func indexHandler(w http.ResponseWriter, r *http.Request) {
+	body, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		log.Printf("Error reading request body: %v", err)
 		http.Error(w, "Could not read body", http.StatusBadRequest)
@@ -16,7 +16,7 @@ func indexHandler(w http.ResponseWriter, req *http.Request) {
 	} else {
 		w.Write(body)
 	}
-	log.Printf("%s - %s - %s", req.Method, req.URL, body)
+	log.Printf("%s - %s - %s", r.Method, r.URL, body)
 }
 
 func main() {
