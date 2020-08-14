@@ -11,14 +11,13 @@ func indexHandler(w http.ResponseWriter, req *http.Request) {
 	if err != nil {
 		log.Printf("Error reading request body: %v", err)
 		http.Error(w, "Could not read body", http.StatusBadRequest)
-		return
+	} else if len(body) == 0 {
+		w.WriteHeader(http.StatusNoContent)
+	} else {
+		w.Write(body)
 	}
 	log.Printf("%s - %s - %s", req.Method, req.URL, body)
-	if len(body) == 0 {
-		w.WriteHeader(http.StatusNoContent)
-		return
-	}
-	w.Write(body)
+	req.Body.Close()
 }
 
 func main() {
